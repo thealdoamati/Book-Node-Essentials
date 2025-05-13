@@ -11,6 +11,8 @@ var server = net.createServer(function (socket) {
     socket.end("Hello World TCP:" + (count++) + "\n")
 })
 
-server.listen(3000, "localhost")
+server.listen(3000, "127.0.0.1", () => {
+    console.log("Servidor TCP ouvindo em 127.0.0.1:3000");
+});
 
 console.log("Servidor TCP iniciando...")
