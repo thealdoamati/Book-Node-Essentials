@@ -1,5 +1,6 @@
 var http = require("http");
 var url = require("url");
+var Pessoa = require('./pessoa')
 
 // Função de callback para o servidor HTTP
 function callback(request, response) {
@@ -7,22 +8,40 @@ function callback(request, response) {
   var parts = url.parse(request.url)
   var path = parts.path
   // Configura o tipo de retorno para json
-  response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"})
+  response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" })
   // Verifica o path
-  if(path == '/teste') {
+  if (path == '/teste') {
     response.end("{\"nome\":\"Ricardo\",\"sobrenome\":\"Lecheta\"}")
 
-  } else if(path == '/teste2') {
-    var pessoa = { 'nome': 'Aldo', 'sobrenome': 'Amati'}
+  } else if (path == '/teste2') {
+    var pessoa = { 'nome': 'Aldo', 'sobrenome': 'Amati' }
     var json = JSON.stringify(pessoa)
     response.end(json)
 
-  } else if(path == '/teste3') {
+  } else if (path == '/teste3') {
     var pessoas = []
-    var p1 = { 'nome': 'Aldo', 'sobrenome': 'Amati'}
-    var p2 = { 'nome': 'João', 'sobrenome': 'Kuan'}
+    var p1 = { 'nome': 'Aldo', 'sobrenome': 'Amati' }
+    var p2 = { 'nome': 'João', 'sobrenome': 'Kuan' }
     pessoas.push(p1)
     pessoas.push(p2)
+    var json = JSON.stringify(pessoas)
+    response.end(json)
+
+  } else if (path == '/teste4') {
+    // Mesmo JSON porém em classe
+    var pessoas = []
+    // var Pessoa = class {
+    //   constructor(nome, sobrenome) {
+    //     this.nome = nome
+    //     this.sobrenome = sobrenome
+    //   }
+    // }
+
+    var p1 = new Pessoa("Aldo", "Amati")
+    var p2 = new Pessoa("Steve", "Jobs")
+    pessoas.push(p1)
+    pessoas.push(p2)
+
     var json = JSON.stringify(pessoas)
     response.end(json)
 
