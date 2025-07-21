@@ -50,9 +50,66 @@ class CarroDB {
       }
       // Encontrou o carro
       let carro = results[0];
-      callback(carro)
+      callback(carro);
     });
-    console.log(query.sql)
-    connection.end()
+    console.log(query.sql);
+    connection.end();
+  }
+
+  // Salva carro no banco de dados
+  // Recebe o JSON com dados do carro como parâmetro
+  static save(carro, callback) {
+    let connection = CarroDB.connect();
+    // Insere o carro
+    let sql = "insert into carro set ? ";
+    let query = connection.query(sql, carro, function (error, results, fields) {
+      if (error) throw error;
+      // Atualiza o objeto carro como parâmetro com o "id" inserido
+      carro.id = results.insertId;
+      // Retorna o carro pela função de callback
+      callback(carro);
+    });
+    console.log(query.sql);
+    connection.end();
+  }
+
+  static update(carro, callback) {
+    let connection = CarroDB.connect();
+    let sql = "update carro set ? where id = ?";
+    let id = carro.id;
+    let query = connection.query(
+      sql,
+      [carro, id],
+      function (error, results, fields) {
+        if (error) throw error;
+        callback(carro);
+      }
+    );
+    console.log(query.sql);
+    connection.end();
+  }
+
+  static delete(carro, callback) {
+    let connection = CarroDB.connect();
+    let sql = "delete from carro where id = ?";
+    let id = carro.id;
+    let query = connection.query(sql, id, function (error, results, fields) {
+      if (error) throw error;
+      callback(carro);
+    });
+    console.log(query.sql);
+    connection.end();
+  }
+
+  static deleteById(id, callback) {
+    let connection = CarroDB.connect();
+    let sql = "delete from carro where id = ?";
+    let query = connection.query(sql, id, function (error, results, fields) {
+      if (error) throw error;
+      callback(results.affectedRows);
+    });
+    console.log(query.sql);
+    connection.end();
   }
 }
+module.exports = CarroDB;
