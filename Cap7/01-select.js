@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+var mysql = require("mysql2");
 
 // Cria conexão com MySQL
 var connection = mysql.createConnection({
@@ -19,8 +19,16 @@ connection.query(sql, function (error, results, fields) {
   if (error) throw error;
   let carros = results;
   for (let i = 0; i < carros.length; i++) {
-    console.log(carros[i].id + ": " + carros[i].nome)
+    console.log(carros[i].id + ": " + carros[i].nome);
   }
 });
 // Fecha a conexão
 connection.end();
+
+const CarroDB = require("./CarroDB");
+CarroDB.getCarros(function (carros) {
+  // Imprime os carros
+  for (let i = 0; carros.length > i; i++) {
+    console.log(carros[i].id + ": " + carros[i].nome);
+  }
+});
