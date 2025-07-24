@@ -10,11 +10,17 @@ var connection = mysql.createConnection({
 // Conecta no banco de dados
 connection.connect();
 
-let sql = "insert into carro set ? ";
-var carro = { nome: "Meu Carro", tipo: "esportivos" };
+// let sql = "insert into carro set ? ";
+// var carro = { nome: "Meu Carro", tipo: "esportivos" };
 
-connection.query(sql, carro, function (error, results, field) {
-  if (error) throw error;
-  console.log("Carro salvo com sucesso, id: " + results.insertId);
-});
-connection.end();
+// connection.query(sql, carro, function (error, results, field) {
+//   if (error) throw error;
+//   console.log("Carro salvo com sucesso, id: " + results.insertId);
+// });
+// connection.end();
+
+const CarroDB = require('./CarroDB')
+var carro2 = { nome: "Bugatti Chiron", tipo: "esportivos" };
+CarroDB.save(carro2, function(carro) {
+  console.log("Carro salvo: " + carro.id + " : " + carro.nome)
+})

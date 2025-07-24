@@ -25,3 +25,8 @@ connection.query(sql, id, function (error, results, fields) {
 });
 
 connection.end();
+
+const CarroDB = require('./CarroDB')
+CarroDB.getCarrosById(11, function(carro) {
+  console.log(carro.id + " : " + carro.nome)
+})
