@@ -22,3 +22,7 @@ connection.connect();
 // connection.end();
 
 const CarroDB = require("./CarroDB");
+var carro = {id: 31, nome: "Meu Carro Update", tipo: "esportivos"}
+CarroDB.update(carro, function(carro) {
+  console.log("Carro editado com sucesso: " + carro.id + " : " + carro.nome )
+})

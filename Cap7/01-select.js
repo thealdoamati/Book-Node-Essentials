@@ -25,13 +25,13 @@ connection.query(sql, function (error, results, fields) {
 // Fecha a conexão
 connection.end();
 
-const CarroDB = require("./CarroDB");
-CarroDB.getCarros(function (carros) {
-  // Imprime os carros
-  for (let i = 0; carros.length > i; i++) {
-    console.log(carros[i].id + ": " + carros[i].nome);
-  }
-});
+// const CarroDB = require("./CarroDB");
+// CarroDB.getCarros(function (carros) {
+//   // Imprime os carros
+//   for (let i = 0; carros.length > i; i++) {
+//     console.log(carros[i].id + ": " + carros[i].nome);
+//   }
+// });
 
 // ou
 
