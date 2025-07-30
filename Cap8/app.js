@@ -16,6 +16,11 @@ function getCarros(response, tipo) {
 
 // FUnção de callback para o servidor HTTP
 function callback(request, response) {
+  if (request.method == "GET") {
+    // GET
+  } else if (request.method == "POST") {
+    // POST
+  }
   // Faz o parser do URL separando o caminha (path)
   var parts = url.parse(request.url);
   var path = parts.path;
