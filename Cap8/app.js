@@ -16,27 +16,46 @@ function getCarros(response, tipo) {
 
 // FUnção de callback para o servidor HTTP
 function callback(request, response) {
-  if (request.method == "GET") {
-    // GET
-  } else if (request.method == "POST") {
-    // POST
-  }
   // Faz o parser do URL separando o caminha (path)
   var parts = url.parse(request.url);
+  console.log("parts", parts);
   var path = parts.path;
-  // Configura o tipo de retorno para application/json
-  response.writeHead(200, {
-    "Content-Type": "application/json; charset=utf-8",
-  });
-  // Verifica o path
-  if (path == "/carros/classicos") {
-    getCarros(response, "classicos");
-  } else if (path == "/carros/esportivos") {
-    getCarros(response, "esportivos");
-  } else if (path == "/carros/luxo") {
-    getCarros(response, "luxo");
-  } else {
-    response.end("Not found: " + path);
+  console.log("path", path);
+  if (request.method == "GET") {
+    // GET
+    // Configura o tipo de retorno para application/json
+    response.writeHead(200, {
+      "Content-Type": "application/json; charset=utf-8",
+    });
+    // Verifica o path
+    if (path == "/carros/classicos") {
+      getCarros(response, "classicos");
+    } else if (path == "/carros/esportivos") {
+      getCarros(response, "esportivos");
+    } else if (path == "/carros/luxo") {
+      getCarros(response, "luxo");
+    } else {
+      response.end("Not found: " + path);
+    }
+  } else if (request.method == "POST") {
+    // POST
+    // Faz a leitura dos dados recebidos por POST
+    var body = "";
+    request.on("data", function (data) {
+      // Concatena os dados recebidos na variável body
+      console.log("data", data);
+      body += data;
+    });
+    request.on("end", function () {
+      // Configura o tipo de retorno para texto
+      response.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+      // Converte o JSON recebido para objeto
+      let calc = JSON.parse(body);
+      // Faz a soma e retorna os dados
+      let c = calc.a + calc.b;
+      response.end("Soma: " + c);
+    });
+    return;
   }
 }
 
