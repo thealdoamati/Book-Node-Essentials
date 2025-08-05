@@ -14,7 +14,15 @@ function getCarros(response, tipo) {
   });
 }
 
-// FUnção de callback para o servidor HTTP
+function salvarCarro(response, carro) {
+  CarroDb.save(carro, function(veiculo) {
+    console.log("Carro salvo com sucesso: " + veiculo.id)
+    var json = JSON.stringify(veiculo)
+    response.end(json)
+  })
+}
+
+// Função de callback para o servidor HTTP
 function callback(request, response) {
   // Faz o parser do URL separando o caminha (path)
   var parts = url.parse(request.url);
@@ -47,13 +55,10 @@ function callback(request, response) {
       body += data;
     });
     request.on("end", function () {
-      // Configura o tipo de retorno para texto
-      response.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-      // Converte o JSON recebido para objeto
-      let calc = JSON.parse(body);
-      // Faz a soma e retorna os dados
-      let c = calc.a + calc.b;
-      response.end("Soma: " + c);
+      // Imprime o body na requisição
+      console.log("POST Body: " + body)
+      let carro = JSON.parse(body);
+      salvarCarro(response, carro)
     });
     return;
   }
