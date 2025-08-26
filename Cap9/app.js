@@ -18,6 +18,12 @@ app.get("/pessoa/:id", function (req, res) {
 	res.send("Buscar a pessoa " + id);
 })
 
+app.get("/pessoa/nome/:nome/sobrenome/:sobrenome", function (req, res) {
+	let nome = req.params.nome
+	let sobrenome = req.params.sobrenome
+	res.send(nome + " " + sobrenome)
+})
+
 // Inicia o servidro
 let server = app.listen(3000, function () {
   let host = server.address().address;
