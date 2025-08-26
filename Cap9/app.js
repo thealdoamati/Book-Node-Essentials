@@ -6,7 +6,7 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Configurando para ler tipo application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Configura uma rota na raiz
 app.get("/", function (req, res) {
@@ -35,7 +35,11 @@ app.get("/pessoa/nome/:nome/sobrenome/:sobrenome", function (req, res) {
 app.post("/pessoa", function (req, res) {
   let nome = req.body.nome;
   let sobrenome = req.body.sobrenome;
-  res.send(nome + " " + sobrenome);
+  if (req.is("json")) {
+    res.json({ nome: nome, sobrenome: sobrenome });
+  } else {
+    res.type("text").send("Texto: " + nome + " " + sobrenome);
+  }
 });
 
 // Inicia o servidro
