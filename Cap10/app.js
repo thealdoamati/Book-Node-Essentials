@@ -1,6 +1,9 @@
 let express = require("express");
 let app = express();
 let bodyParser = require("body-parser");
+
+const CarroDb = require('./CarroDB')
+
 // Configura ler dados do POST por form-urlencoded e application/json
 app.use(bodyParser.urlencoded({ extendend: false }));
 app.use(bodyParser.json());
@@ -12,7 +15,9 @@ app.get("/", function (req, res) {
 
 // GET em /carros
 app.get("/carros", function (req, res) {
-  res.send("Lista de todos os carros aqui");
+  CarroDb.getCarros(function(carros) {
+    res.json(carros)
+  })
 });
 
 // GET em carros/esportivos
