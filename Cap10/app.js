@@ -23,8 +23,24 @@ app.get("/carros", function (req, res) {
 // GET em carros/esportivos
 app.get("/carros/:tipo", function (req, res) {
   let tipo = req.params.tipo;
-  res.send("Lista dos carros: " + tipo);
+  CarroDb.getCarrosByTipo(tipo, function(carros) {
+    res.json(carros)
+  })
 });
+
+app.post('/carros', function (req, res) {
+  let carro = req.body
+  CarroDb.save(carro, function(carro) {
+    res.json(carro)
+  })
+})
+
+app.put('/carros', function(req, res) {
+  let carro = req.body
+  CarroDb.update(carro, function(carro) {
+    res.json(carro)
+  })
+})
 
 // Inicia o servidor
 let server = app.listen(3000, function () {
