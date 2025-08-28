@@ -2,7 +2,7 @@ let express = require("express");
 let app = express();
 let bodyParser = require("body-parser");
 
-const CarroDb = require('./CarroDB')
+const CarroDb = require("./CarroDB");
 
 // Configura ler dados do POST por form-urlencoded e application/json
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,32 +15,33 @@ app.get("/", function (req, res) {
 
 // GET em /carros
 app.get("/carros", function (req, res) {
-  CarroDb.getCarros(function(carros) {
-    res.json(carros)
-  })
+  CarroDb.getCarros(function (carros) {
+    res.json(carros);
+  });
 });
 
 // GET em carros/esportivos
 app.get("/carros/:tipo", function (req, res) {
   let tipo = req.params.tipo;
-  CarroDb.getCarrosByTipo(tipo, function(carros) {
-    res.json(carros)
-  })
+  CarroDb.getCarrosByTipo(tipo, function (carros) {
+    res.json(carros);
+  });
 });
 
-app.post('/carros', function (req, res) {
-  let carro = req.body
-  CarroDb.save(carro, function(carro) {
-    res.json(carro)
-  })
-})
+app.post("/carros", function (req, res) {
+  let carro = req.body;
+  CarroDb.save(carro, function (carro) {
+    res.json(carro);
+  });
+});
 
-app.put('/carros', function(req, res) {
-  let carro = req.body
-  CarroDb.update(carro, function(carro) {
-    res.json(carro)
-  })
-})
+app.put("/carros", function (req, res) {
+  let carro = req.body;
+  CarroDb.update(carro, function (carro) {
+    // res.json(carro);
+    res.json({ msg: "Carro atualizado com sucesso." });
+  });
+});
 
 // Inicia o servidor
 let server = app.listen(3000, function () {
