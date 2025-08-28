@@ -5,7 +5,7 @@ let bodyParser = require("body-parser");
 const CarroDb = require('./CarroDB')
 
 // Configura ler dados do POST por form-urlencoded e application/json
-app.use(bodyParser.urlencoded({ extendend: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Configura rota na raiz
