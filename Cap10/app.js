@@ -20,6 +20,23 @@ app.get("/carros", function (req, res) {
   });
 });
 
+// GET em carros/id (Tem que vir antes do tipo, pois o id é number)
+app.get("/carros/:id", function (req, res) {
+  let id = req.params.id;
+  CarroDb.getCarrosById(id, function (carros) {
+    res.json(carros);
+  });
+});
+
+// DELETE em /carros/id
+app.delete("/carros/:id", function (req, res) {
+  let id = req.params.id;
+  console.log("deletar carro " + id);
+  CarroDb.delete(id, function (affectedRows) {
+    res.json({ msg: "Carro deletado com sucesso." });
+  });
+});
+
 // GET em carros/esportivos
 app.get("/carros/:tipo", function (req, res) {
   let tipo = req.params.tipo;
