@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Configura rota na raiz
-app.get("/api", require("./routes/carros"));
+app.get("/api/carros", require("./routes/carros"));
 
 // Inicia o servidor
 let server = app.listen(3000, function () {
